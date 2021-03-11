@@ -20,6 +20,11 @@ public class main_Menu : MonoBehaviour
 
         SceneManager.LoadScene("TopTable");
     }
+    public void MenuTheGame()
+    {
+
+        SceneManager.LoadScene("main_Menu");
+    }
     public void QuitTheGame()
     {
 

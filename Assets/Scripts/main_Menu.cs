@@ -10,7 +10,6 @@ public class main_Menu : MonoBehaviour
 
     public void StartTheGame()
     {
-        Debug.Log("Start");
 
         SceneManager.LoadScene("Level_game");
     }

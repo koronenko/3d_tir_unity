@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
+
 using System.Collections;
 
 [RequireComponent(typeof(AudioSource))]
@@ -58,11 +59,17 @@ public class Controller : MonoBehaviour
 
         timeStart -= Time.deltaTime;
         Txt_sek.text = "Time: " + Mathf.Round(timeStart).ToString();
-        Txt_score.text = "Target: " + score;
+        if (timeStart <= 0)
+        {
+            Txt_sek.text = "the end";
+           // Time.deltaTime = 0f;
+        }
+        else
+        {
+            Txt_score.text = "Target: " + score;
 
-        Spawn(); //стрільба по мішені
-        Invoke("Respawn", 5f);
-
+            Spawn(); //стрільба по мішені
+        }
     }
 
     public void Spawn()
@@ -84,6 +91,10 @@ public class Controller : MonoBehaviour
                         if (pool_AR[i].active && pool_AR[i].transform == hit.transform)
                         {
                             pool_AR[i].SetActive(false); // приховування мішеней
+                            active_target_count--;
+
+
+                                Invoke("Respawn", 5f);
 
                         }
                     }
@@ -99,7 +110,7 @@ public class Controller : MonoBehaviour
     public void toTargetKill()
     {
 
-        Destroy(inst_sfera, .2f);
+        Destroy(inst_sfera, .1f);
 
 
     }
@@ -109,12 +120,17 @@ public class Controller : MonoBehaviour
     }
     void Respawn()
     {
-        if (active_target_count == 0)
+        if (active_target_count < pool_count) // поки всі активні не виконуємо
         {
-          for (int i = 0; i < pool_count; i++)
+            int index;
+            do
             {
-                pool_AR[i].SetActive(true);
+                index = Random.Range(0, pool_count);
             }
+            while (pool_AR[index].active); // берем рендомно мішень поки вона не активна, якщо активна не беремо
+
+            pool_AR[index].SetActive(true);
+            active_target_count++;
         }
     }
 }

@@ -37,6 +37,7 @@ public class Controller : MonoBehaviour
 
     private void Start()
     {
+        Time.timeScale = 1f;
         Txt_sek.text = "Time:" + timeStart.ToString();
 
         audioSource = GetComponent<AudioSource>();
@@ -62,7 +63,7 @@ public class Controller : MonoBehaviour
         if (timeStart <= 0)
         {
             Txt_sek.text = "the end";
-           // Time.deltaTime = 0f;
+            Time.timeScale = 0f; //зупиняємо плин часу в грі
         }
         else
         {

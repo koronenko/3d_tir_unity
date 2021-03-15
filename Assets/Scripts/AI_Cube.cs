@@ -3,29 +3,18 @@ using UnityEngine.SceneManagement;
 public class AI_Cube : MonoBehaviour
 {
     private float speed;
-     void Start()
+    public float StartTime; //з якої секунди починати
+    public float EndTime; // через скільки приховувати мішень
+
+
+    void FixedUpdate()
     {
-        // позиція рандомна,
-      //  transform.localPosition = new Vector3(transform.localPosition.x, Random.Range(-1f, 1f));
+        StartTime += 1f * Time.deltaTime; // відраховуємо секунди
 
-        // швидкість рандомна
-        speed = Random.Range(1, 2);
-
-        // розмір рандомний
-        //transform.localScale = Vector3.one * Random.Range(0.1f, 1f);
-    }
-
-
-    void Update()
-    {
-        // просто переміщаємо вліво
-     //   transform.Translate(-speed * Time.deltaTime, 0, 0);
-
-        //перевірка і перезагрузка сцени
-        if (transform.localPosition.x < -10)
+        if (StartTime >= EndTime) // при завершенні часу
         {
-        //    transform.Translate(speed * Time.deltaTime, 0, 0);
-            //  SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+            gameObject.SetActive(false); // приховуємо
+            //Destroy(gameObject);
         }
 
     }
